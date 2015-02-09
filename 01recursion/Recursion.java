@@ -1,4 +1,3 @@
-import java.lang.*;
 public class Recursion implements hw1{
 
     public String name(){
@@ -35,7 +34,8 @@ public class Recursion implements hw1{
     }
 
     public double guesser (double n, double guess){
-	if (Math.abs(guess - ((n / guess + guess) / 2)) < 0.00000001){
+	double g = guess - ((n / guess + guess) / 2);
+	if (g < 0.00000001 && g > -0.00000001){
 	    return guess;
 	}
 	return guesser (n, ((n / guess + guess) / 2));
@@ -48,8 +48,6 @@ public static void main(String[]args){
     System.out.println(a.fact(5));
     System.out.println(a.fib(30));
     System.out.println(a.sqrt(18742));
-    System.out.println(a.fact(-10));
-    System.out.println(a.fib(10));
 }
     
 }
