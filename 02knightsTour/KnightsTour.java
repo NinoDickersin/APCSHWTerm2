@@ -9,6 +9,7 @@ public class KnightsTour{
 
     //instance variable
     private int[][]board;
+    public boolean filled;
 
     public String name(){
 	return "dickersin.nino";
@@ -29,22 +30,29 @@ public class KnightsTour{
 
     public String toString(){
 	String ans = "\n";
+	String space;
 	for(int i = 0; i < board.length; i ++){
 	    for (int j = 0; j < board[0].length; j++){
-		ans += board[i][j] + " ";
+		if(board[i][j] < 10){
+		    space = " ";
+		}else{
+		    space = "";
+		}
+		ans += board[i][j] + space + " ";
 	    }
 	    ans += "\n";
 	}
-    
-	return hide + clear + go(0,0) + ans + "\n" + show;
+	if(filled){
+	    ans += "Solved\n";
+	}else{
+	    ans += "No Solution\n";
+	}
+	return ans + "\n";
     }
 
     public KnightsTour(int size){
 	board = new int[size][size];
     }
-		
-
-
     
     public boolean solve(){
 	return solve(0,0);
@@ -53,14 +61,12 @@ public class KnightsTour{
     public boolean solve(int startx, int starty){
 	return solve(startx, starty, 1);
     }
-
-
 		
     public boolean solve(int x,int y,int currentMoveNumber){
 	if (x < 0 || y < 0 || x > board[0].length - 1 || y > board.length - 1){
 	    return false;
 	}
-	boolean filled = true;
+	filled = true;
 	for(int i = 0; i < board.length; i ++){
 	    for (int j = 0; j < board[0].length; j++){
 		if (board[i][j] == 0){
@@ -68,15 +74,20 @@ public class KnightsTour{
 		}
 	    }
 	}
-	System.out.println(this);
-	wait(20);
 	//base case
 	if(filled){
 	    return true;
 	}
 	if(board[x][y] == 0){
 	    board[x][y] = currentMoveNumber;
-	    if(solve(x - 2, y + 1, currentMoveNumber + 1) || solve(x - 2, y - 1, currentMoveNumber + 1) || solve(x - 1, y - 2, currentMoveNumber + 1) || solve(x + 1, y - 2, currentMoveNumber + 1) || solve(x + 2, y + 1, currentMoveNumber + 1) || solve(x + 2, y - 1, currentMoveNumber + 1) || solve(x + 1, y + 2, currentMoveNumber + 1) || solve(x - 1, y + 2, currentMoveNumber + 1)){
+	    if(solve(x - 2, y + 1, currentMoveNumber + 1) ||
+	       solve(x - 2, y - 1, currentMoveNumber + 1) ||
+	       solve(x - 1, y - 2, currentMoveNumber + 1) ||
+	       solve(x + 1, y - 2, currentMoveNumber + 1) ||
+	       solve(x + 2, y + 1, currentMoveNumber + 1) ||
+	       solve(x + 2, y - 1, currentMoveNumber + 1) ||
+	       solve(x + 1, y + 2, currentMoveNumber + 1) ||
+	       solve(x - 1, y + 2, currentMoveNumber + 1)){
 		return true;
 	    }
 	board[x][y] = 0;
@@ -84,7 +95,14 @@ public class KnightsTour{
 	return false;
     }
     public static void main(String[]args){
-	KnightsTour a = new KnightsTour(3);
+	KnightsTour a = new KnightsTour(5);
+	KnightsTour b = new KnightsTour(4);
+	KnightsTour c = new KnightsTour(6);
 	a.solve();
+	b.solve();
+	c.solve();
+	System.out.println(a);
+	System.out.println(b);
+	System.out.println(c);
     }
 }

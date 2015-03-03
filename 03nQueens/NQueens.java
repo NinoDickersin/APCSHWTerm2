@@ -38,7 +38,12 @@ public class NQueens{
 	    }
 	    ans += "\n";
 	}
-	return hide + clear + go(0,0) + ans + "\n" + show;
+	if(qCount == 8){
+	    ans += "Solved\n";
+	}else{
+	    ans += "No Solution\n";
+	}
+	return  ans + "\n";
     }
 
     public String name(){
@@ -48,33 +53,28 @@ public class NQueens{
     public boolean solve(){
 	return solve(0);
     }
-    /**
     public boolean solve(int x){
-	return solve(0, x);
+	return solve(x, 0);
     }
-    **/
-    public boolean solve(int x){
+    public boolean solve(int x, int y){
 	/**
- 	if (x < 0 || y < 0 || x > board[0].length - 1 || y > board.length - 1){
-	    return false;
-	}
+	   if (x < 0 || y < 0 || x > board[0].length - 1 || y > board.length - 1){
+	   return false;
+	   }
 	**/
-	System.out.println(this);
-	wait(20);
-
 	//base case
 	if(qCount == 8){
 	    return true;
 	}
-	for(int i = 0;i < board.length; i++){
-	    if(checkSpot(x,i)){
-		board[x][i] = 'Q';
+	for(int i = x;i < board[0].length; i++){
+	    if(checkSpot(i,y)){
+		board[y][i] = 'Q';
 		qCount ++;
-		if (solve(x + 1)){
+		if (solve(0, y + 1)){
 		    return true;
 		}
-	    board[x][i] = 'x';
-	    qCount --;
+		board[y][i] = 'x';
+		qCount --;
 	    }
 	}
 
@@ -82,9 +82,10 @@ public class NQueens{
     }
 
     public boolean checkSpot(int x, int y){
-	for (int i = 0; i < board.length - 1; i++){
-	    for (int j = 0; j < board[0].length - 1; j++){
-		if(((i == y) || (j == x) || Math.abs(i - x) == Math.abs(j-y)) && board[j][i] == 'Q'){
+	for (int i = 0; i < board.length; i++){
+	    for (int j = 0; j < board[0].length; j++){
+		if(((i == y) || (j == x) || Math.abs(j - x) == Math.abs(i - y))
+		   && board[i][j] == 'Q'){
 		    return false;
 		}
 	    }
@@ -93,6 +94,7 @@ public class NQueens{
     }
     public static void main(String[]args){
 	NQueens a = new NQueens(8);
-	a.solve();
+	a.solve(3);
+	System.out.println(a);
     }
 }
