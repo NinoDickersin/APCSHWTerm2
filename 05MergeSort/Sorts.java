@@ -12,10 +12,7 @@ public class Sorts{
 	
 	//split the list
 	int[] a = new int[n.length / 2];
-	int[] b = new int[n.length / 2];
-	if(n.length % 2 != 0){
-	    b = new int[n.length / 2 + 1];
-	}
+	int[] b = new int[n.length - a.length];
 	boolean even = true;
 	int count1 = 0;
 	int count2 = 0;
@@ -62,13 +59,12 @@ public class Sorts{
     }
 
     public static void main(String[]args){
-	int[] a = new int[10];
+	int[] a = new int[10000000];
 	Random r = new Random();
 	for(int i = 0; i < a.length; i ++){
 	    a[i] = r.nextInt(2000000) - 1000000;
 	}
-	System.out.println(Arrays.toString(a));
 	mergesort(a);
-	System.out.println(Arrays.toString(a));
+	//Arrays.sort(a);
     }
 }
