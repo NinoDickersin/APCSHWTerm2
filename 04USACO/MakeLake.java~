@@ -1,6 +1,6 @@
 public class MakeLake{
     public int[][] land;
-    public int waterElev, numMoves, inches;
+    public int waterElev, numMoves;
 
     public MakeLake(int rows, int cols, int elevation, int moves){
 	land= new int[][]{ {28, 25, 20, 32, 34, 36},
@@ -22,8 +22,8 @@ public class MakeLake{
 	    }
 	    newElevation = maxElevation - inches;
 	}
-	for(int r =- 1;r<2;r++){
-	    for(int c = -1; c<2; c++){
+	for(int r=-1;r<2;r++){
+	    for(int c=-1; c<2; c++){
 		if(land[row+r][col+c] > newElevation){
 		    land[row+r][col+c]=newElevation;
 		}   
@@ -33,17 +33,7 @@ public class MakeLake{
     }
 
     public void fill(){
-	for(int i = 0; i < land.length; i++){
-	    for(int j = 0; j < land[0].length; j++){
-		if(land[i][j] < waterElev){
-		    inches += waterElev - land[i][j];
-		}
-	    }
-	}
-    }
 
-    public int getLakeVol(){
-	return inches * 72 * 72;
     }
 
     public String toString(){
@@ -60,10 +50,10 @@ public class MakeLake{
 
     public static void main(String[] args){
 	MakeLake lake = new MakeLake(4,6,22,2);
+	System.out.println(lake);
 	lake.stomp(1, 4, 4);
-	lake.stomp(1, 1, 10);
-	lake.fill();
-	System.out.println(lake.getLakeVol());
+	System.out.println(lake);
+
     }
 
     
