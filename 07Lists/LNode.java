@@ -3,10 +3,10 @@ public class LNode{
     private LNode next = null;
 
     public LNode(int value){
-	setValue(e);
+	setValue(value);
     }
 
-    public int getValue()
+    public int getValue(){
 	return value;
     }
 
@@ -14,7 +14,7 @@ public class LNode{
 	value = x;
     }
 
-    public LNode getNext()
+    public LNode getNext(){
 	return next;
     }
 
