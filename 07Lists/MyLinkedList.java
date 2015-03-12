@@ -1,9 +1,9 @@
 public class MyLinkedList{
-    private LNode start;
+    private LNode start = null;
 
-    public MyLinkedList(int value){
+    public MyLinkedList(){
 
-    } 
+    }
 
     public int get(int index){
 	LNode current = start;
@@ -16,6 +16,10 @@ public class MyLinkedList{
     }
 
     public void set(int index, int value){
+	if(this.size() <= 0){
+	    LNode l = new LNode(value);
+	    start = l;
+	}
 	if(index >= this.size()){
 	    throw new IndexOutOfBoundsException("This index is not in the array.");
 	}
@@ -28,11 +32,17 @@ public class MyLinkedList{
 	current.setValue(value);
     } 
 
-    public void add(int value){
+    public boolean add(int value){
 	add(this.size() - 1, value);
+	return true;
     }
 
-    public void add(int index, int value){
+    public boolean add(int index, int value){
+	if(this.size() <=0){
+	    LNode l = new LNode(value);
+	    this.set(0, value);
+	    return true;
+	}
 	if(index >= this.size()){
 	    throw new IndexOutOfBoundsException("This index is not in the array.");
 	}
@@ -46,6 +56,7 @@ public class MyLinkedList{
 	LNode b = new LNode(value);
 	current.setNext(b);
 	b.setNext(a);
+	return true;
     }
 
     public void remove(int index){
@@ -53,8 +64,12 @@ public class MyLinkedList{
 	    throw new IndexOutOfBoundsException("This index is not in the array.");
 	}
 	LNode current = start;
-	int i = 0;
-	while (current.getNext() != null && i != index){
+	int i = 1;
+	while (i < index){
+	    if((current.getNext()).getNext() == null){
+		current.setNext(null);
+		return;
+	    }
 	    current = current.getNext();
 	    i++;
 	}
@@ -62,6 +77,9 @@ public class MyLinkedList{
     }
 
     public int size(){
+	if(start == null){
+	    return 0;
+	}
 	LNode current = start;
 	int i = 0;
 	while (current.getNext() != null){
@@ -86,16 +104,27 @@ public class MyLinkedList{
 
     public String toString(){
 	LNode current = start;
-	String a = "[" + current.getValue() + ", ";
-	while ((current.getNext()).getNext() != null){
-	    current = current.getNext();
+	String a = "[";
+	while (current != null){
 	    a += current.getValue() + ", ";
+	    current = current.getNext();
 	}
-	a += (current.getNext()).getValue() + "]";
-	return a;
+	return a.substring(0, a.length() - 2) + "]";
     }
 
     public static void main(String[]args){
-	
+	MyLinkedList a = new MyLinkedList();
+	a.add(1);
+	a.add(2);
+	a.add(3);
+	System.out.println(a.toString());
+	System.out.println(a.get(0));
+	a.set(0,0);
+	a.set(1,1);
+	a.set(2,2);
+	System.out.println(a.size());
+	System.out.println(a.indexOf(2));
+	a.remove(2);
+	System.out.println(a.toString());
     }
 }
