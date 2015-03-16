@@ -12,6 +12,10 @@ public class CTravel{
 	moves = time;
     }
 
+    public String name(){
+	return "dickersin.nino";
+    }
+
     public int run(int cowRow, int cowCol, int endRow, int endCol){
 	return run(cowRow - 1, cowCol - 1, endRow - 1, endCol - 1, moves);
     }

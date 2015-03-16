@@ -11,6 +11,10 @@ public class MakeLake{
 	numMoves = moves;
     }
 
+    public String name(){
+	return "dickersin.nino";
+    }
+
     public void stomp(int row, int col, int inches){
 	int maxElevation = 0;
 	int newElevation = 0;
