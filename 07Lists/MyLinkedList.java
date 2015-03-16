@@ -3,6 +3,11 @@ public class MyLinkedList{
     private int size;
     private LNode end;
 
+
+    public String name(){
+	return "dickersin.nino";
+    }
+
     public MyLinkedList(){
 	size = 0;
 	start = null;

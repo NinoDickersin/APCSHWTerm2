@@ -2,6 +2,12 @@ import java.util.*;
 
 public class Sorts{
 
+
+    public String name(){
+	return "dickersin.nino";
+    }
+
+
    public static void quicksort(int[]ary){
 	quicksortHelper(ary, 0, ary.length-1);
     }

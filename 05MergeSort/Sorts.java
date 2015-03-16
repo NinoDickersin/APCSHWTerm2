@@ -4,6 +4,10 @@ import java.util.Arrays;
 
 public class Sorts{
 
+    public String name(){
+	return "dickersin.nino";
+    }
+
     public static void mergesort(int[] n){
 	//base case
 	if (n.length < 2){
