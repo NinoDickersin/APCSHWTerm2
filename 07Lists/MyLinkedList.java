@@ -1,7 +1,7 @@
-public class MyLinkedList{
-    private LNode start;
+public class MyLinkedList<T>{
+    private LNode<T> start;
     private int size;
-    private LNode end;
+    private LNode<T> end;
 
 
     public String name(){
@@ -14,8 +14,8 @@ public class MyLinkedList{
 	end = null;
     }
 
-    public int get(int index){
-	LNode current = start;
+    public T get(int index){
+	LNode<T> current = start;
 	int i = 0;
 	while (current.getNext() != null && i != index){
 	    current = current.getNext();
@@ -24,16 +24,16 @@ public class MyLinkedList{
 	return current.getValue();	
     }
 
-    public void set(int index, int value){
+    public void set(int index, T value){
 	if(this.size() <= 0){
-	    LNode l = new LNode(value);
+	    LNode<T> l = new LNode<T>(value);
 	    start = l;
 	    return;
 	}
 	if(index >= this.size()){
 	    throw new IndexOutOfBoundsException("This index is not in the array.");
 	}
-	LNode current = start;
+	LNode<T> current = start;
 	int i = 0;
 	while (current.getNext() != null && i != index){
 	    current = current.getNext();
@@ -42,8 +42,8 @@ public class MyLinkedList{
 	current.setValue(value);
     } 
 
-    public boolean add(int value){
-	LNode l = new LNode(value);
+    public boolean add(T value){
+	LNode<T> l = new LNode<T>(value);
 	if(this.size() == 0){
 	    start = l;
 	    end = l;
@@ -56,9 +56,9 @@ public class MyLinkedList{
 	return true;
     }
 
-    public boolean add(int index, int value){
+    public boolean add(int index, T value){
 	if(this.size() <=0){
-	    LNode l = new LNode(value);
+	    LNode<T> l = new LNode<T>(value);
 	    this.set(0, value);
 	    size ++;
 	    return true;
@@ -73,8 +73,8 @@ public class MyLinkedList{
 	    current = current.getNext();
 	    i++;
 	}
-	LNode a = current.getNext();
-	LNode b = new LNode(value);
+	LNode<T> a = current.getNext();
+	LNode<T> b = new LNode<T>(value);
 	current.setNext(b);
 	b.setNext(a);
 	size ++;
@@ -85,7 +85,7 @@ public class MyLinkedList{
 	if(index >= this.size()){
 	    throw new IndexOutOfBoundsException("This index is not in the array.");
 	}
-	LNode current = start;
+	LNode<T> current = start;
 	int i = 1;
 	while (i < index){
 	    if((current.getNext()).getNext() == null){
@@ -104,8 +104,8 @@ public class MyLinkedList{
 	return size;
     }
     
-    public int indexOf(int value){
-	LNode current = start;
+    public int indexOf(T value){
+	LNode<T> current = start;
 	int i = 0;
 	while (current.getNext() != null){
 	    current = current.getNext();
@@ -118,7 +118,7 @@ public class MyLinkedList{
     }
 
     public String toString(){
-	LNode current = start;
+	LNode<T> current = start;
 	String a = "[";
 	while (current != null){
 	    a += current.getValue() + ", ";

@@ -1,16 +1,16 @@
-public class LNode{
-    private int value;
+public class LNode<T>{
+    private T value;
     private LNode next = null;
 
-    public LNode(int value){
+    public LNode(T value){
 	setValue(value);
     }
 
-    public int getValue(){
+    public T getValue(){
 	return value;
     }
 
-    public void setValue(int x){
+    public void setValue(T x){
 	value = x;
     }
 
