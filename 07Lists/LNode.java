@@ -1,6 +1,6 @@
 public class LNode<T>{
     private T value;
-    private LNode next = null;
+    private LNode<T> next = null;
 
     public LNode(T value){
 	setValue(value);
@@ -14,11 +14,11 @@ public class LNode<T>{
 	value = x;
     }
 
-    public LNode getNext(){
+    public LNode<T> getNext(){
 	return next;
     }
 
-    public void setNext(LNode a){
+    public void setNext(LNode<T> a){
 	next = a;
     }
 

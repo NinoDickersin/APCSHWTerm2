@@ -1,4 +1,20 @@
-public class MyLinkedList<T>{
+public class MyLinkedList<T>{// implements Iterable<T>{
+
+    /**
+    public class MLLIterator<T> implements Iterator<T>{
+	public T next(){
+
+	}
+
+	public boolean hasNext(){
+
+	}
+
+	public void remove(){
+	    throw new UnsupportedOperationException("Remove = broke xD");
+	}
+    }
+    **/
     private LNode<T> start;
     private int size;
     private LNode<T> end;
@@ -67,7 +83,7 @@ public class MyLinkedList<T>{
 	}else if(index == this.size() - 1){
 	    add(value);
 	}
-	LNode current = start;
+	LNode<T> current = start;
 	int i = 0;
 	while (current.getNext() != null && i != index){
 	    current = current.getNext();
@@ -128,7 +144,7 @@ public class MyLinkedList<T>{
     }
 
     public static void main(String[]args){
-	MyLinkedList a = new MyLinkedList();
+	MyLinkedList<Integer> a = new MyLinkedList<Integer>();
 	a.add(1);
 	a.add(2);
 	a.add(3);
