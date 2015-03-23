@@ -1,33 +1,35 @@
+import java.util.*;
+
 public class MyLinkedList<T> implements Iterable<T>{
 
-public class LNode<T>{
-    private T value;
-    private LNode<T> next = null;
+    public class LNode<T>{
+	private T value;
+	private LNode<T> next = null;
 
-    public LNode(T value){
-	setValue(value);
-    }
+	public LNode(T value){
+	    setValue(value);
+	}
 
-    public T getValue(){
-	return value;
-    }
+	public T getValue(){
+	    return value;
+	}
 
-    public void setValue(T x){
-	value = x;
-    }
+	public void setValue(T x){
+	    value = x;
+	}
 
-    public LNode<T> getNext(){
-	return next;
-    }
+	public LNode<T> getNext(){
+	    return next;
+	}
 
-    public void setNext(LNode<T> a){
-	next = a;
-    }
+	public void setNext(LNode<T> a){
+	    next = a;
+	}
 
-    public String toString(){
-	return "" + this.getValue();
+	public String toString(){
+	    return "" + this.getValue();
+	}
     }
-}
 
 
     public class MLLIterator<T> implements Iterator<T>{
@@ -67,8 +69,6 @@ public class LNode<T>{
 
     public MyLinkedList(){
 	size = 0;
-	start = null;
-	end = null;
     }
 
     public T get(int index){
@@ -182,6 +182,10 @@ public class LNode<T>{
 	    current = current.getNext();
 	}
 	return a.substring(0, a.length() - 2) + "]";
+    }
+
+    public Iterator<T> iterator() {
+	return new MLLIterator(start);
     }
 
     public static void main(String[]args){
