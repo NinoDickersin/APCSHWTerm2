@@ -1,20 +1,63 @@
-public class MyLinkedList<T>{// implements Iterable<T>{
+import java.util.*;
 
-    /**
+public class MyLinkedList<T> implements Iterable<T>{
+
+    public class LNode<T>{
+	private T value;
+	private LNode<T> next = null;
+
+	public LNode(T value){
+	    setValue(value);
+	}
+
+	public T getValue(){
+	    return value;
+	}
+
+	public void setValue(T x){
+	    value = x;
+	}
+
+	public LNode<T> getNext(){
+	    return next;
+	}
+
+	public void setNext(LNode<T> a){
+	    next = a;
+	}
+
+	public String toString(){
+	    return "" + this.getValue();
+	}
+    }
+
+
     public class MLLIterator<T> implements Iterator<T>{
-	public T next(){
+	private LNode<T> current;
+	
+	public MLLIterator(LNode<T> a){
+	    current = a;
+	}
 
+	public T next(){
+	    if(hasNext()){
+		T value = current.getValue();
+		current = current.getNext();
+		return value;
+	    }else{
+		throw new NoSuchElementException("No 'next' element assigned.");
+	    }
 	}
 
 	public boolean hasNext(){
-
+	    return current != null;
 	}
 
 	public void remove(){
 	    throw new UnsupportedOperationException("Remove = broke xD");
 	}
     }
-    **/
+
     private LNode<T> start;
     private int size;
     private LNode<T> end;
@@ -26,8 +69,6 @@ public class MyLinkedList<T>{// implements Iterable<T>{
 
     public MyLinkedList(){
 	size = 0;
-	start = null;
-	end = null;
     }
 
     public T get(int index){
@@ -141,6 +182,10 @@ public class MyLinkedList<T>{// implements Iterable<T>{
 	    current = current.getNext();
 	}
 	return a.substring(0, a.length() - 2) + "]";
+    }
+
+    public Iterator<T> iterator() {
+	return new MLLIterator(start);
     }
 
     public static void main(String[]args){
