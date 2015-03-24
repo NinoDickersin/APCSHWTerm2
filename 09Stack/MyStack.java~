@@ -1,0 +1,20 @@
+public class MyStack<T> extends MyLinkedList<T>{
+
+    MyLinkedList<T> stack;
+
+    public MyStack(){
+	stack = new MyLinkedList();
+    }
+
+    public T peek(){
+	
+    }
+
+    public T pop(){
+
+    }
+
+    public void push(T item){
+
+    }
+}
