@@ -1,0 +1,81 @@
+import java.util.*
+
+public class DEQ<T>{
+
+    public T[] queue;
+    public int head;
+    public int tail;
+
+    public DEQ{
+	queue = new T[10];
+	head = 1;
+	tail = 1;
+    }
+
+    public void addFirst(T value){
+	head --;
+	if(head < 0){
+	    head = queue.size() - 1; 
+	}
+	if (queue[head] != null){
+	    enlarge();
+	    head = queue.size() - 1;
+	}
+	queue[head] = value;
+    }
+
+    public void addLast(T value){
+	
+    }
+
+    public T removeFirst(){
+
+    }
+
+    public T removeLast(){
+
+    }
+
+    public T getFirst(){
+
+    }
+
+    public T getLast(){
+
+    }
+
+    public void enlarge(){
+	queue = copyOf(queue, queue.size() * 2);
+    }
+
+    public void shrink(){
+	queue = copyOf(queue, queue.size() / 3);
+    }
+
+    public void resize(){
+
+    }
+
+    public String toString(){
+	String a = "[";
+	for(int i = head; i <= tail; i ++){
+	    if(i >= queue.size()){
+		i = 0;
+	    }
+	    a += queue[i] + ", ";
+	}
+	a += "]";
+	return a;
+    }
+
+    public static void main(String[]args){
+	DEQ<Integer> a = new DEQ<Integer>();
+	a.addFirst(1);
+	a.addFirst(2);
+	a.addFirst(3);
+	a.addFirst(4);
+	a.addFirst(5);
+	System.out.println(a);
+    }
+    
+}
