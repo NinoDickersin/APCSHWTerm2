@@ -9,7 +9,7 @@ public class MyDeque<T>{
     public MyDeque(){
 	queue = new Object[10];
 	head = 1;
-	tail = 1;
+	tail = 0;
     }
 
     public void addFirst(T value){
@@ -19,13 +19,21 @@ public class MyDeque<T>{
 	}
 	if (queue[head] != null){
 	    enlarge();
-	    head = queue.length - 1;
+	    this.addFirst(value);
 	}
 	queue[head] = value;
     }
 
     public void addLast(T value){
-	
+	tail ++;
+	if(tail > queue.length - 1){
+	    tail = 0;
+	}
+	if(queue[tail] != null){
+	    enlarge();
+	    this.addLast(value);
+	}
+	queue[tail] = value;
     }
     /**
 
@@ -59,8 +67,11 @@ public class MyDeque<T>{
     }
 
     public String toString(){
+	if(queue.length == 0){
+	    return "[]";
+	}
 	String a = "[" + queue[head];
-	for(int i = head + 1; i != tail; i ++){
+	for(int i = head + 1; i != tail + 1; i ++){
 	    if(i >= queue.length){
 		i = 0;
 	    }
@@ -77,6 +88,9 @@ public class MyDeque<T>{
 	a.addFirst(3);
 	a.addFirst(4);
 	a.addFirst(5);
+	a.addLast(0);
+	a.addLast(1);
+	a.addLast(2);
 	System.out.println(a.toString());
     }
     
