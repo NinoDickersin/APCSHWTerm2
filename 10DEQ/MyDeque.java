@@ -63,17 +63,24 @@ public class MyDeque<T>{
     /**
 
     public T removeLast(){
-
+    
     }
 
-    public T getFirst(){
+    **/
 
+    public T getFirst(){
+	if(size == 0){
+	    throw new NoSuchElementException();
+	}
+	return (T)queue[head];
     }
 
     public T getLast(){
-
+	if(size == 0){
+	    throw new NoSuchElementException();
+	}
+	return (T)queue[tail];
     }
-    **/
 
     public void enlarge(){
 	Object[] copy = new Object[size * 2];
@@ -157,6 +164,8 @@ public class MyDeque<T>{
 	a.removeFirst();
 	a.removeFirst();
 	System.out.println(a.toString());
+	System.out.println(a.getFirst());
+	System.out.println(a.getLast());
 	System.out.println(a.size());
 	System.out.println(a.length());
     }
