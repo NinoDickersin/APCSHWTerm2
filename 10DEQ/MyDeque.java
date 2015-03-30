@@ -60,13 +60,23 @@ public class MyDeque<T>{
 	}
 	return a;
     }
-    /**
 
     public T removeLast(){
-    
+    	if(size == 0){
+	    throw new NoSuchElementException();
+	}
+	T a = (T)queue[tail];
+	queue[tail] = null;
+	tail --;
+	if(tail < 0){
+	    tail = queue.length - 1;
+	}
+	size --;
+	if (size < queue.length / 3){
+	    shrink();
+	}
+	return a;
     }
-
-    **/
 
     public T getFirst(){
 	if(size == 0){
@@ -159,10 +169,9 @@ public class MyDeque<T>{
 	a.removeFirst();
 	a.removeFirst();
 	a.removeFirst();
-	a.removeFirst();
-	a.removeFirst();
-	a.removeFirst();
-	a.removeFirst();
+	a.removeLast();
+	a.removeLast();
+	a.removeLast();
 	System.out.println(a.toString());
 	System.out.println(a.getFirst());
 	System.out.println(a.getLast());
