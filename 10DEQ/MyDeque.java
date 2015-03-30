@@ -19,10 +19,11 @@ public class MyDeque<T>{
 	if(head < 0){
 	    head = queue.length - 1; 
 	}
-	if (queue[head] != null){
+	if (size >= queue.length){
 	    head++;
 	    enlarge();
 	    this.addFirst(value);
+	    return;
 	}
 	queue[head] = value;
 	size ++;
@@ -30,22 +31,36 @@ public class MyDeque<T>{
 
     public void addLast(T value){
 	tail ++;
-	if(tail > queue.length - 1){
-	    tail = 0;
-	}
-	if(queue[tail] != null){
+	if(size >= queue.length){
 	    tail--;
 	    enlarge();
 	    this.addLast(value);
+	    return;
+	}
+	if(tail > queue.length - 1){
+	    tail = 0;
 	}
 	queue[tail] = value;
 	size ++;
     }
-    /**
 
     public T removeFirst(){
-
+	if(size == 0){
+	    throw new NoSuchElementException();
+	}
+	T a = (T)queue[head];
+	queue[head] = null;
+	head ++;
+	if(head > queue.length){
+	    head = 0;
+	}
+	size --;
+	if (size < queue.length / 3){
+	    shrink();
+	}
+	return a;
     }
+    /**
 
     public T removeLast(){
 
@@ -63,8 +78,6 @@ public class MyDeque<T>{
     public void enlarge(){
 	Object[] copy = new Object[size * 2];
 	int j = 0;
-	System.out.println(head);
-	System.out.println(tail);
 	for(int i = head; i != tail; i ++){
 	    if(i >= queue.length){
 		i = 0;
@@ -77,22 +90,30 @@ public class MyDeque<T>{
 	tail = j;
 	queue = copy;
     }
-    /**
+
     public void shrink(){
-	Object[] copy = new Object[size / 3];
+	Object[] copy = new Object[queue.length / 2];
 	int j = 0;
-	for(int i = head + 1; i != tail + 1; i ++){
+	for(int i = head; i != tail; i ++){
 	    if(i >= queue.length){
 		i = 0;
 	    }
 	    copy[j] = queue[i];
 	    j++;
 	}
+	copy[j] = queue[tail];
 	head = 0;
 	tail = j;
 	queue = copy;
     }
-    **/
+
+    public int size(){
+	return size;
+    }
+
+    public int length(){
+	return queue.length;
+    }
 
     public String toString(){
 	if(queue.length == 0){
@@ -125,6 +146,19 @@ public class MyDeque<T>{
 	a.addLast(5);
 	a.addLast(6);
 	System.out.println(a.toString());
+	System.out.println(a.size());
+	System.out.println(a.length());
+	a.removeFirst();
+	a.removeFirst();
+	a.removeFirst();
+	a.removeFirst();
+	a.removeFirst();
+	a.removeFirst();
+	a.removeFirst();
+	a.removeFirst();
+	System.out.println(a.toString());
+	System.out.println(a.size());
+	System.out.println(a.length());
     }
     
 }
