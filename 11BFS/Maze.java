@@ -15,13 +15,20 @@ public class Maze{
 	return "dickersin.nino";
     }
 
+    public Maze(){
+	maze = new char[][]{ {'S','.','*','*','.'},
+				{'.','.','.','*','.'},
+				{'.','*','.','.','.'},
+				{'.','.','*','.','E'} };
+    }
+    /**
     public Maze(String filename){
 	String a = "";
 	int r = 0;
 	int c = 0;
 	Scanner sc = new Scanner(new File (filename));
-	while(sc.hasNextString()){
-	    String c = sc.nextString();
+	while(sc.hasNext()){
+	    String c = sc.next();
 	    if(c.equals("NEXT")){
 		r ++;
 		c = 0;
@@ -30,8 +37,15 @@ public class Maze{
 		c ++;
 	    }
 	}
-	
+	maze = new char[c][r];
+	for(int i = 0; i < maze.length; i ++){
+	    for(int j = 0; j < maze[0].length; j++){
+		maze[i][j] = a.substring(0, 1);
+		a = a.substring(1);
+	    }
+	}
     }
+    **/
 
     public String toString(){
 	return this.toString(false);
@@ -39,11 +53,11 @@ public class Maze{
 
     public String toString(boolean animate){
 	String a = "";
-
+	return "banana";
     }
 
     public boolean solveBFS(boolean animate){
-
+	return true;
     }
 
     public boolean solveBFS(){
@@ -51,14 +65,21 @@ public class Maze{
     }
 
     public boolean solveDFS(boolean animate){
-	
+	return true;
     }
 
     public boolean solveDFS(){
 	return solveDFS(false);
     }
 
+    /**
     public int[] solutionCoordinates(){
+	
+    }
+    **/
 
+    public static void main(String[]args){
+	Maze a = new Maze();
+	//	Maze b = new Maze("MazeFile.txt");
     }
 }

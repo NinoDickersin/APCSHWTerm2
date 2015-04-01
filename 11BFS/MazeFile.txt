@@ -1,0 +1,5 @@
+S . . . . NEXT
+* . * . * NEXT
+. . * . . NEXT
+* * . . * NEXT
+E . . * * NEXT
