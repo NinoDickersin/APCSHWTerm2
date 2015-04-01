@@ -2,6 +2,8 @@ import java.util.*;
 
 public class Maze{
     public char[][] maze;
+    public Frontier next = new Frontier();
+    
 
     private static final String clear =  "\033[2J";
     private static final String hide =  "\033[?25l";
@@ -17,9 +19,9 @@ public class Maze{
 
     public Maze(){
 	maze = new char[][]{ {'S','.','*','*','.'},
-				{'.','.','.','*','.'},
-				{'.','*','.','.','.'},
-				{'.','.','*','.','E'} };
+			     {'.','.','.','*','.'},
+			     {'.','*','.','.','.'},
+			     {'.','.','*','.','E'} };
     }
     /**
     public Maze(String filename){
@@ -57,7 +59,8 @@ public class Maze{
     }
 
     public boolean solveBFS(boolean animate){
-	return true;
+	Frontier.addFirst();
+
     }
 
     public boolean solveBFS(){
