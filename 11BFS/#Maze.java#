@@ -25,6 +25,7 @@ public class Maze{
 			     {'.','.','*','.','E'} };
 	start = new Coordinate(0,0);
 	end = new Coordinate(5,5);
+	next.addFirst(start);
     }
     /**
     public Maze(String filename){
@@ -62,7 +63,8 @@ public class Maze{
     }
 
     public boolean solveBFS(boolean animate){
-	next.addFirst(start);
+	Coordinate current = next.getFirst();
+	if(
 	return true;
     }
 
