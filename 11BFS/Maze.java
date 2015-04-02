@@ -2,8 +2,8 @@ import java.util.*;
 
 public class Maze{
     public char[][] maze;
-    public Frontier<Coordinate> next = new Frontier<Coordinate>();
     public Coordinate start, end;
+    public int size;
     
 
     private static final String clear =  "\033[2J";
@@ -21,10 +21,13 @@ public class Maze{
     public Maze(){
 	maze = new char[][]{ {'S','.','*','*','.'},
 			     {'.','.','.','*','.'},
+			     {'.','*','.','*','.'},
 			     {'.','*','.','.','.'},
 			     {'.','.','*','.','E'} };
 	start = new Coordinate(0,0);
 	end = new Coordinate(5,5);
+	size = 5;
+	next.addFirst(start);
     }
     /**
     public Maze(String filename){
@@ -62,7 +65,23 @@ public class Maze{
     }
 
     public boolean solveBFS(boolean animate){
-	next.addFirst(start);
+	public Frontier<Coordinate> next = new Frontier<Coordinate>();
+	while(current != end){
+	    Coordinate current = next.getFirst();
+	    int x = current.getX();
+	    int y = current.getY();
+	    if(x - 1 > 0 && !(maze[y][x - 1]).equals('*')){
+	    
+	    }
+	    if(x + 1 < size && !(maze[y][x + 1]).equals('*')){
+
+	    }
+	    if(y - 1 > 0 && !(maze[y - 1][x]).equals('*')){
+
+	    } if(y + 1 < size && !(maze[y + 1][x]).equals('*')){
+
+	    }
+	}
 	return true;
     }
 
