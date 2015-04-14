@@ -6,14 +6,21 @@ public class MyDeque<T>{
     public int head;
     public int tail;
     public int size;
+    public int[] priority;
 
     public MyDeque(){
 	queue = new Object[10];
 	head = 1;
 	tail = 0;
 	size = 0;
+	priority = new int[10];
     }
 
+    public void add(T value, int pri){
+	priority[head] = pri;
+	addFirst(value);
+    }
+    
     public void addFirst(T value){
 	head --;
 	if(head < 0){
@@ -88,18 +95,22 @@ public class MyDeque<T>{
 
     public void enlarge(){
 	Object[] copy = new Object[size * 2];
+	int pricopy = new int[size * 2];
 	int j = 0;
 	for(int i = head; i != tail; i ++){
 	    if(i >= queue.length){
 		i = 0;
 	    }
 	    copy[j] = queue[i];
+	    pricopy[j] = priority[i];
 	    j++;
 	}
 	copy[j] = queue[tail];
+	pricopy[j] = priority[tail];
 	head = 0;
 	tail = j;
 	queue = copy;
+	priority = pricopy;
     }
 
     public int size(){
