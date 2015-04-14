@@ -20,6 +20,33 @@ public class MyDeque<T>{
 	priority[head] = pri;
 	addFirst(value);
     }
+
+    public T removeSmallest(){
+	int smallSpot = head;
+	for(int i = head + 1; i != tail; i ++){
+	    if(i >= queue.length){
+		i = 0;
+	    }
+	    if(priority[smallSpot] > priority[i]){
+		smallSpot = i;
+	    }
+	}
+	T smallest = queue[smallSpot];
+	queue[smallSpot] = queue[head];
+	priority[smallSpot] = priority[head];
+	queue[head] = null;
+	priority[head] = null;
+	if(head > tail){
+	    head ++;
+	}else{
+	    head --;
+	}
+	if(head > length()){
+	    head = 0;
+	}else if(head < 0){
+	    head = length() - 1;
+	}
+    }
     
     public void addFirst(T value){
 	head --;
