@@ -97,6 +97,14 @@ public class Maze{
 	return solveDFS(false);
     }
 
+    public boolean solveBest(){
+
+    }
+
+    public boolean solveAStar(){
+
+    }
+
     public boolean solve(boolean animate, int type){
 	Frontier next = new Frontier(type);
 	boolean found = false;
