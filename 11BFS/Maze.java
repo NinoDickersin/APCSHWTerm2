@@ -101,7 +101,15 @@ public class Maze{
 
     }
 
-    public boolean solveAStar(){
+    public boolean solveBest(boolean animate){
+
+    }
+
+    public boolean solveAStar(boolean animate){
+
+    }
+
+    public boolean solveAStar(boolean animate){
 
     }
 
