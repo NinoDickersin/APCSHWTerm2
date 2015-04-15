@@ -23,16 +23,20 @@ public class MyDeque<T>{
 
     public T removeSmallest(){
 	int smallSpot = head;
-	for(int i = head + 1; i != tail;){
-	    i++;
-	    if(i >= queue.length){
+	for(int i = head + 1; i != tail;i++){
+	    if(i >= length()){
 		i = 0;
 	    }
 	    if(priority[smallSpot] > priority[i]){
 		smallSpot = i;
 	    }
+	    if(i == tail){
+		break;
+	    }
 	}
 	T smallest = (T)queue[smallSpot];
+	System.out.println(head);
+	System.out.println(smallSpot);
 	queue[smallSpot] = queue[head];
 	priority[smallSpot] = priority[head];
 	queue[head] = null;
@@ -42,7 +46,7 @@ public class MyDeque<T>{
 	}else{
 	    head --;
 	}
-	if(head > length()){
+	if(head >= length()){
 	    head = 0;
 	}else if(head < 0){
 	    head = length() - 1;
@@ -54,9 +58,9 @@ public class MyDeque<T>{
     public void addFirst(T value){
 	head --;
 	if(head < 0){
-	    head = queue.length - 1; 
+	    head = length() - 1; 
 	}
-	if (size >= queue.length){
+	if (size >= length()){
 	    head++;
 	    enlarge();
 	    this.addFirst(value);
@@ -68,13 +72,13 @@ public class MyDeque<T>{
 
     public void addLast(T value){
 	tail ++;
-	if(size >= queue.length){
+	if(size >= length()){
 	    tail--;
 	    enlarge();
 	    this.addLast(value);
 	    return;
 	}
-	if(tail > queue.length - 1){
+	if(tail > length() - 1){
 	    tail = 0;
 	}
 	queue[tail] = value;
@@ -152,18 +156,22 @@ public class MyDeque<T>{
     }
 
     public String toString(){
-	if(queue.length == 0){
+	if(length() == 0){
 	    return "[]";
 	}
 	String a = "[" + queue[head];
 	for(int i = head + 1; i != tail + 1; i ++){
-	    if(i >= queue.length){
+	    if(i >= length()){
 		i = 0;
 	    }
 	    a += ", " + queue[i];
 	}
 	a += "]";
 	return a;
+    }
+
+    public String priToString(){
+	return Arrays.toString(priority);
     }
 
     public static void main(String[]args){
@@ -173,7 +181,14 @@ public class MyDeque<T>{
 	a.add(-1, 9);
 	a.add(4,1);
 	System.out.println(a.toString());
+	System.out.println(a.priToString());
 	System.out.println(a.removeSmallest()); //4
+	System.out.println(a.toString());
+	System.out.println(a.priToString());
+	System.out.println(a.removeSmallest()); //5
+	System.out.println(a.toString());
+	System.out.println(a.priToString());
+	System.out.println(a.removeSmallest()); //3
 	System.out.println(a.toString());
     }
     
