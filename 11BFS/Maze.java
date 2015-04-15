@@ -105,7 +105,7 @@ public class Maze{
 
     }
 
-    public boolean solveAStar(boolean animate){
+    public boolean solveAStar(){
 
     }
 
