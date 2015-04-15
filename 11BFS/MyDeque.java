@@ -17,13 +17,21 @@ public class MyDeque<T>{
     }
 
     public void add(T value, int pri){
+	head --;
+	if(head < 0){
+	    head = length() - 1;
+	}
 	priority[head] = pri;
+	head ++;
+	if(head >= length()){
+	    head = 0;
+	}
 	addFirst(value);
     }
 
     public T removeSmallest(){
 	int smallSpot = head;
-	for(int i = head + 1; i != tail;i++){
+	for(int i = head; i != tail;i++){
 	    if(i >= length()){
 		i = 0;
 	    }
