@@ -98,19 +98,19 @@ public class Maze{
     }
 
     public boolean solveBest(){
-
+	return solveBest(false);
     }
 
     public boolean solveBest(boolean animate){
-
+	return solvePriority(animate, 0);
     }
 
     public boolean solveAStar(){
-
+	return solveAStar(false);
     }
 
     public boolean solveAStar(boolean animate){
-
+	return solvePriority(animate, 1);
     }
 
     public boolean solve(boolean animate, int type){
@@ -140,6 +140,21 @@ public class Maze{
 	    return true;
 	}
 	return false;
+    }
+
+    public boolean solvePriority(boolean animate, int type){
+	Frontier next = new Frontier(type);
+	boolean found = false;
+	next.add(start, );
+    }
+
+    public int findDistance(int type){
+	if(type == 2){//BFS
+
+	}else if(type == 3){//A*
+
+	}
+	return -1;
     }
 
     public boolean endFind(Frontier a, boolean animate){

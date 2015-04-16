@@ -17,6 +17,14 @@ public class Frontier<T>{
 	}
     }
 
+    public void add(Coordinate value, int pri){
+	d.add(value, pri);
+    }
+
+    public Coordinate removePri(){
+	return d.removeSmallest();
+    }
+
     public Coordinate remove(){
 	return d.removeFirst();
     }
