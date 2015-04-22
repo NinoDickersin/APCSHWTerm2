@@ -17,43 +17,58 @@ public class MyDeque<T>{
     }
 
     public void add(T value, int pri){
+	head --;
+	if(head < 0){
+	    head = length() - 1;
+	}
 	priority[head] = pri;
+	head ++;
+	if(head >= length()){
+	    head = 0;
+	}
 	addFirst(value);
     }
 
     public T removeSmallest(){
 	int smallSpot = head;
-	for(int i = head + 1; i != tail; i ++){
-	    if(i >= queue.length){
+	for(int i = head; i != tail;i++){
+	    if(i >= length()){
 		i = 0;
 	    }
 	    if(priority[smallSpot] > priority[i]){
 		smallSpot = i;
 	    }
+	    if(i == tail){
+		break;
+	    }
 	}
-	T smallest = queue[smallSpot];
+	T smallest = (T)queue[smallSpot];
+	System.out.println(head);
+	System.out.println(smallSpot);
 	queue[smallSpot] = queue[head];
 	priority[smallSpot] = priority[head];
 	queue[head] = null;
-	priority[head] = null;
+	priority[head] = 0;
 	if(head > tail){
 	    head ++;
 	}else{
 	    head --;
 	}
-	if(head > length()){
+	if(head >= length()){
 	    head = 0;
 	}else if(head < 0){
 	    head = length() - 1;
 	}
+	size --;
+	return smallest;
     }
     
     public void addFirst(T value){
 	head --;
 	if(head < 0){
-	    head = queue.length - 1; 
+	    head = length() - 1; 
 	}
-	if (size >= queue.length){
+	if (size >= length()){
 	    head++;
 	    enlarge();
 	    this.addFirst(value);
@@ -65,13 +80,13 @@ public class MyDeque<T>{
 
     public void addLast(T value){
 	tail ++;
-	if(size >= queue.length){
+	if(size >= length()){
 	    tail--;
 	    enlarge();
 	    this.addLast(value);
 	    return;
 	}
-	if(tail > queue.length - 1){
+	if(tail > length() - 1){
 	    tail = 0;
 	}
 	queue[tail] = value;
@@ -122,7 +137,7 @@ public class MyDeque<T>{
 
     public void enlarge(){
 	Object[] copy = new Object[size * 2];
-	int pricopy = new int[size * 2];
+	int[] pricopy = new int[size * 2];
 	int j = 0;
 	for(int i = head; i != tail; i ++){
 	    if(i >= queue.length){
@@ -149,12 +164,12 @@ public class MyDeque<T>{
     }
 
     public String toString(){
-	if(queue.length == 0){
+	if(length() == 0){
 	    return "[]";
 	}
 	String a = "[" + queue[head];
 	for(int i = head + 1; i != tail + 1; i ++){
-	    if(i >= queue.length){
+	    if(i >= length()){
 		i = 0;
 	    }
 	    a += ", " + queue[i];
@@ -163,36 +178,26 @@ public class MyDeque<T>{
 	return a;
     }
 
+    public String priToString(){
+	return Arrays.toString(priority);
+    }
+
     public static void main(String[]args){
 	MyDeque<Integer> a = new MyDeque<Integer>();
-	a.addFirst(1);
-	a.addFirst(2);
-	a.addFirst(3);
-	a.addFirst(4);
-	a.addFirst(5);
-	a.addFirst(6);
-	a.addLast(0);
-	a.addLast(1);
-	a.addLast(2);
-	a.addLast(3);
-	a.addLast(4);
-	a.addLast(5);
-	a.addLast(6);
+	a.add(5,5);
+	a.add(3, 8);
+	a.add(-1, 9);
+	a.add(4,1);
 	System.out.println(a.toString());
-	System.out.println(a.size());
-	System.out.println(a.length());
-	a.removeFirst();
-	a.removeFirst();
-	a.removeFirst();
-	a.removeFirst();
-	a.removeLast();
-	a.removeLast();
-	a.removeLast();
+	System.out.println(a.priToString());
+	System.out.println(a.removeSmallest()); //4
 	System.out.println(a.toString());
-	System.out.println(a.getFirst());
-	System.out.println(a.getLast());
-	System.out.println(a.size());
-	System.out.println(a.length());
+	System.out.println(a.priToString());
+	System.out.println(a.removeSmallest()); //5
+	System.out.println(a.toString());
+	System.out.println(a.priToString());
+	System.out.println(a.removeSmallest()); //3
+	System.out.println(a.toString());
     }
     
 }

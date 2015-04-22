@@ -10,23 +10,23 @@ public class Frontier<T>{
     }
 
     public void add(Coordinate value){
-	if (type == 0){
+	if (type == 0){ // BFS
 	    d.addLast(value);
-	}else if(type == 1){
+	}else if(type == 1){ // DFS
 	    d.addFirst(value);
+	}else if(type == 2){ // Best First
+	    d.add(value, value.getDistanceTo());
+	}else if(type == 3){ // A*
+	    d.add(value, value.getDistanceTo() + value.getDistanceFrom() );
 	}
     }
 
-    public void add(Coordinate value, int pri){
-	d.add(value, pri);
-    }
-
-    public Coordinate removePri(){
-	return d.removeSmallest();
-    }
-
     public Coordinate remove(){
-	return d.removeFirst();
+	if( type == 2 || type == 3){
+	    return d.removeSmallest();
+	}else{
+	    return d.removeFirst();
+	}
     }
    
     public int size(){
