@@ -1,29 +1,40 @@
 public class Coordinate{
-    public int x;
-    public int y;
+    public int r; //row
+    public int c; //column
+    public int d; //distance from start
+    public Coordinate last; //last spot
     
-    public Coordinate(int xcor, int ycor){
-	x = xcor;
-	y = ycor;
+    public Coordinate(int row, int col){
+	r = row;
+	c = col;
+	d = 0;
+	last = null;
     }
 
-    public void setX(int xcor){
-	x = xcor;
+    public Coordinate(int row, int col, int dist, Coordinate l){
+	r = row;
+	c = col;
+	d = dist;
+	last = l;
     }
 
-    public void setY(int ycor){
-	y = ycor;
+    public int getRow(){
+	return r;
     }
 
-    public int getX(){
-	return x;
+    public int getCol(){
+	return c;
     }
 
-    public int getY(){
-	return y;
+    public int getDistance(){
+	return d;
+    }
+
+    public Coordinate getLast(){
+	return last;
     }
 
     public String toString(){
-	return "(" + x + ", " + y + ")";
+	return "(" + r + ", " + c + ")";
     }
 }

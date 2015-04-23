@@ -30,8 +30,14 @@ public class MyDeque<T>{
     }
 
     public T removeSmallest(){
-	if(size < 1){
+	if (size == 0){
 	    throw new NoSuchElementException();
+	}else if(size == 1){
+	    size --; 
+	    T a = (T)queue[head];
+	    queue[head] = null;
+	    head = (head + 1) % queue.length;
+	    return a;
 	}
 	int smallSpot = head;
 	for(int i = head; i != tail;i++){
@@ -46,8 +52,6 @@ public class MyDeque<T>{
 	    }
 	}
 	T smallest = (T)queue[smallSpot];
-	System.out.println(head);
-	System.out.println(smallSpot);
 	queue[smallSpot] = queue[head];
 	priority[smallSpot] = priority[head];
 	queue[head] = null;

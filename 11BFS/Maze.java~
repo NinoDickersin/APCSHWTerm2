@@ -28,30 +28,18 @@ public class Maze{
 	return "dickersin.nino";
     }
 
-    public Maze(){
-	maze = new char[][]{ {'S','.','*','*','.'},
-			     {'.','.','.','*','.'},
-			     {'.','*','.','*','.'},
-			     {'.','*','.','.','.'},
-			     {'.','.','*','.','E'} };
-	start = new Coordinate(0,0);
-	end = new Coordinate(5,5);
-	size = 5;
-	next.addFirst(start);
-    }
-
     public Maze(String filename){
 	String a = "";
-	int r = 0;
-	int c = 0;
+	startX = -1;
+	startY = -1;
 	try{
 	    Scanner sc = new Scanner(new File (filename));
 	    while(sc.hasNext()){
-		String c = sc.nextLine();
+		String b = sc.nextLine();
 		if(maxY == 0){
-		    maxX = line.length();
+		    maxX = b.length();
 		}
-		ans += line;
+		a += b;
 		maxY++;
 	    }
 	}
@@ -62,8 +50,8 @@ public class Maze{
 	}
 
 	maze = new char[maxX][maxY];
-	for(int i = 0; i < ans.length(); i ++){
-	    char c = ans.charAt(i);
+	for(int i = 0; i < a.length(); i ++){
+	    char c = a.charAt(i);
 	    maze[i % maxX][i / maxX] = c;
 	    if(c=='S'){
 		startX = i % maxX;
@@ -109,6 +97,22 @@ public class Maze{
 	return solveDFS(false);
     }
 
+    public boolean solveBest(){
+	return solveBest(false);
+    }
+
+    public boolean solveBest(boolean animate){
+	return solvePriority(animate, 0);
+    }
+
+    public boolean solveAStar(){
+	return solveAStar(false);
+    }
+
+    public boolean solveAStar(boolean animate){
+	return solvePriority(animate, 1);
+    }
+
     public boolean solve(boolean animate, int type){
 	Frontier next = new Frontier(type);
 	boolean found = false;
@@ -123,19 +127,34 @@ public class Maze{
 	    }
 	}
 	if(found){
-	    Coordinate x = end.getPrev();
+	    Coordinate x = end.getLast();
 	    while(x.getDistance() > 0){
 		if(animate){
 		    System.out.println(toString(animate));
 		    wait(50);
 		}
 		maze[x.getRow()][x.getCol()] = '@';
-		x = x.getPrev();
+		x = x.getLast();
 	    }
 	    System.out.println(toString(animate));
 	    return true;
 	}
 	return false;
+    }
+
+    public boolean solvePriority(boolean animate, int type){
+	Frontier next = new Frontier(type);
+	boolean found = false;
+	next.add(start, );
+    }
+
+    public int findDistance(int type){
+	if(type == 2){//BFS
+
+	}else if(type == 3){//A*
+
+	}
+	return -1;
     }
 
     public boolean endFind(Frontier a, boolean animate){
@@ -145,7 +164,7 @@ public class Maze{
 	}
 	Coordinate y = a.remove();
 	if(maze[y.getRow()][y.getCol()] == 'E'){
-	    sol = y;
+	    end = y;
 	    return true;
 	}
 	if (maze[y.getRow()][y.getCol()] == ' ' || maze[y.getRow()][y.getCol()] == 'S'){
@@ -153,31 +172,31 @@ public class Maze{
 		maze[y.getRow()][y.getCol()] = 'x';
 	    }
 	    if ( maze[y.getRow()][y.getCol()+1] == ' ' || maze[y.getRow()][y.getCol()+1] == 'E' ){
-		a.add(new Coordinate(y.getRow(), y.getCol()+1, y.getDist()+1, y)); 
+		a.add(new Coordinate(y.getRow(), y.getCol()+1, y.getDistance()+1, y)); 
 	    }
 	    if ( maze[y.getRow()][y.getCol()-1] == ' ' || maze[y.getRow()][y.getCol()-1] == 'E'){
-		a.add(new Coordinate(y.getRow(), y.getCol()-1, y.getDist()+1, y)); 
+		a.add(new Coordinate(y.getRow(), y.getCol()-1, y.getDistance()+1, y)); 
 	    }
 	    if ( maze[y.getRow()+1][y.getCol()] == ' ' || maze[y.getRow()+1][y.getCol()] == 'E' ){
-		a.add(new Coordinate(y.getRow()+1, y.getCol(), y.getDist()+1, y));
+		a.add(new Coordinate(y.getRow()+1, y.getCol(), y.getDistance()+1, y));
 	    }
 	    if ( maze[y.getRow()-1][y.getCol()] == ' ' || maze[y.getRow()-1][y.getCol()] == 'E'){
-		a.add(new Coordinate(y.getRow()-1, y.getCol(), y.getDist()+1, y));
+		a.add(new Coordinate(y.getRow()-1, y.getCol(), y.getDistance()+1, y));
 	    }
 	}
 	return false;
     }
 
     public int[] solutionCoordinates(){
-	if(sol == null){
+	if(end == null){
 	    return new int[0];
 	}
-	int[] a = new int[(sol.getDistance() + 1) * 2];
-	Coordinate current = sol;
-	for (int i = (sol.getDistance() + 1) * 2 - 1; i >= 0; i -= 2){
+	int[] a = new int[(end.getDistance() + 1) * 2];
+	Coordinate current = end;
+	for (int i = (end.getDistance() + 1) * 2 - 1; i >= 0; i -= 2){
 	    a[i] = current.getCol();
 	    a[i - 1] = current.getRow();
-	    current = current.getPrev();
+	    current = current.getLast();
 	}
 	return a;
     }
@@ -188,6 +207,6 @@ public class Maze{
 	//	a.solveBFS(false);
 	//	a.solveDFS(true);
 	//	a.solveDFS(false);
-	System.out.println(Arrays.toString(a.solutionCoordinates());
+	System.out.println(Arrays.toString(a.solutionCoordinates()));
     }
 }
