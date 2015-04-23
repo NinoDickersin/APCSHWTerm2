@@ -101,15 +101,17 @@ public class BTree<T>{
     }
 
     public void preOrder(TreeNode<T> curr){
-
+	String a = "[";
+	a += curr.getData(); + ", ";
+	
     }
 
     public void inOrder(TreeNode<T> curr){
-
+	String a = "";
     }
 
     public void postOrder(TreeNode<T> curr){
-
+	String a = "";
     }
 
     public int getHeight(){
