@@ -39,16 +39,8 @@ public class BTree<T>{
 	    LChild = l;
 	}
 
-	public TreeNode getLeft(){
-	    return LChild;
-	}
-
 	public void setRight(TreeNode r){
 	    RChild = r;
-	}
-
-	public TreeNode getRight(){
-	    return RChild;
 	}
     }
 
@@ -56,37 +48,18 @@ public class BTree<T>{
     public static final int IN_ORDER = 1;
     public static final int POST_ORDER = 2;    
 
-    Random r = new Random(421);
-
     private TreeNode<E> root;
 
     public BTree() {
 	root = null;
     }
 
-    public BTree(TreeNode r){
-	root = r;
-    }
-
     public void add(T d){
-	TreeNode<T> = new TreeNode(d);
+
     }
 
     private void add(TreeNode<T> curr, TreeNode<T> bn){
-	if(curr.getLeft() == null){
-	    curr.setLeft(bn);
-	    return;
-	}else if(curr.getRight() == null){
-	    curr.setRight(bn);
-	    return;
-	}else{
-	    int c = r.nextInt(2);
-	    if(c == 0){
-		add(curr.getLeft(), bn);
-	    }else{
-		add(curr.getRight(), bn
-	    }
-	}
+
     }
 
     public void traverse(int mode){
@@ -119,15 +92,5 @@ public class BTree<T>{
 
     }
 
-    private String getLevel(TreeNode<T> curr, int level, int currLevel){
-	return "";
-    }
-
-    public String toString(){
-	return "";
-    }
-
-    public static void main(String[]args){
-
-    }
+    private String getLevel
 }
