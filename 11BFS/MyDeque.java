@@ -30,6 +30,9 @@ public class MyDeque<T>{
     }
 
     public T removeSmallest(){
+	if(size < 1){
+	    throw new NoSuchElementException();
+	}
 	int smallSpot = head;
 	for(int i = head; i != tail;i++){
 	    if(i >= length()){
@@ -197,6 +200,13 @@ public class MyDeque<T>{
 	System.out.println(a.toString());
 	System.out.println(a.priToString());
 	System.out.println(a.removeSmallest()); //3
+	System.out.println(a.toString());
+	a.add(3, -5);
+	a.add(99, 65);
+	System.out.println(a.toString());
+	System.out.println(a.removeSmallest()); //3
+	System.out.println(a.toString());
+	System.out.println(a.removeSmallest()); //-1
 	System.out.println(a.toString());
     }
     
