@@ -125,11 +125,19 @@ public class BTree<T>{
     }
 
     public void inOrder(TreeNode<T> curr){
-	System.out.println(preOrderH(curr));
+	System.out.println("[" + preOrderH(curr) + "]");
     }
 
     public String inOrderH(TreeNode<T> curr){
-	return "";
+	String a = "";
+	if(curr.getLeft() != null){
+	    a += " " + preOrderH(curr.getLeft()) + ",";
+	}
+	a += " " + curr.getData() + ",";
+	if(curr.getRight() != null){
+	    a += " " + preOrderH(curr.getRight()) + ",";
+	}
+	return a;
     }
 
     public void postOrder(TreeNode<T> curr){
