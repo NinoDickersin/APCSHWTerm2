@@ -145,7 +145,14 @@ public class BTree<T>{
     }
 
     public String postOrderH(TreeNode<T> curr){
-	return "";
+	String a = " " + curr.getData() + ",";
+	if(curr.getLeft() != null){
+	    a += " " + preOrderH(curr.getLeft()) + ",";
+	}
+	if(curr.getRight() != null){
+	    a += " " + preOrderH(curr.getRight()) + ",";
+	}
+	return a;
     }
 
     public int getHeight(){
