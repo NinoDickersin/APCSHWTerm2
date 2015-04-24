@@ -8,23 +8,32 @@ public class BTree<T>{
 	private TreeNode<T> parent;
 	private TreeNode<T> LChild, RChild;
 
-	public TreeNode(){
-	    TreeNode(null);
-	}
-
-	public TreeNode(T value){
-	    TreeNode(value, null);
-	}
-
-	public TreeNode(T value, TreeNode p){
-	    TreeNode(value, p, null, null);
-	}
-
 	public TreeNode(T value, TreeNode p, TreeNode l, TreeNode r){
 	    data = value;
 	    parent = p;
 	    LChild = l;
 	    RChild = r;
+	}
+
+	public TreeNode(T value, TreeNode p){
+	    data = value;
+	    parent = p;
+	    LChild = null;
+	    RChild = null;
+	}
+
+	public TreeNode(T value){
+       	    data = value;
+	    parent = null;
+	    LChild = null;
+	    RChild = null;
+	}
+
+	public TreeNode(){
+      	    data = null;
+	    parent = null;
+	    LChild = null;
+	    RChild = null;
 	}
 
 	public T getData(){
@@ -58,7 +67,7 @@ public class BTree<T>{
 
     Random r = new Random(421);
 
-    private TreeNode<E> root;
+    private TreeNode<T> root;
 
     public BTree() {
 	root = null;
@@ -69,7 +78,7 @@ public class BTree<T>{
     }
 
     public void add(T d){
-	TreeNode<T> = new TreeNode(d);
+	TreeNode<T> a = new TreeNode(d);
     }
 
     private void add(TreeNode<T> curr, TreeNode<T> bn){
@@ -84,7 +93,7 @@ public class BTree<T>{
 	    if(c == 0){
 		add(curr.getLeft(), bn);
 	    }else{
-		add(curr.getRight(), bn
+		add(curr.getRight(), bn);
 	    }
 	}
     }
@@ -101,24 +110,41 @@ public class BTree<T>{
     }
 
     public void preOrder(TreeNode<T> curr){
-	String a = "[";
-	a += curr.getData(); + ", ";
-	
+	System.out.println("[" +  preOrderH(curr) + "]");
+    }
+
+    public String preOrderH(TreeNode<T> curr){
+	String a = "";
+	if(curr.getLeft() != null){
+	    a += " " + preOrderH(curr.getLeft()) + ",";
+	}
+	if(curr.getRight() != null){
+	    a += " " + preOrderH(curr.getRight()) + ",";
+	}
+	return a + " " + curr.getData() + ",";
     }
 
     public void inOrder(TreeNode<T> curr){
-	String a = "";
+	System.out.println(preOrderH(curr));
+    }
+
+    public String inOrderH(TreeNode<T> curr){
+	return "";
     }
 
     public void postOrder(TreeNode<T> curr){
-	String a = "";
+	System.out.println(preOrderH(curr));
+    }
+
+    public String postOrderH(TreeNode<T> curr){
+	return "";
     }
 
     public int getHeight(){
 	return getHeight(root);
     }
     public int getHeight(TreeNode<T> curr){
-
+	return -1;
     }
 
     private String getLevel(TreeNode<T> curr, int level, int currLevel){
