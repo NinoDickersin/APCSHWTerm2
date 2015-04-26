@@ -172,7 +172,7 @@ public class BTree<T>{
 	return 1;
     }
 
-    private String getLevel(TreeNode<T> curr, int level, int currLevel){
+    private String getLevel(TreeNode<T> curr, int level){
 	return "";
     }
 
@@ -191,5 +191,8 @@ public class BTree<T>{
 	t.traverse(1);
 	System.out.println( "Post-order: ");
 	t.traverse(2);
+
+	System.out.println(t.getHeight());
+	System.out.println(t.getHeight(t.getRoot().getLeft()));
     }
 }
