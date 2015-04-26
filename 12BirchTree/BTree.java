@@ -173,7 +173,18 @@ public class BTree<T>{
     }
 
     private String getLevel(TreeNode<T> curr, int level){
-	return "";
+	String a = "";
+	if(this.getHeight() - this.getHeight(curr) == level){
+	    a +=  " " + curr.getData() + ",";
+	    return a;
+	}
+	if(curr.getLeft() != null){
+	    a += getLevel(curr.getLeft(), level);
+	}
+	if(curr.getRight() != null){
+	    a += getLevel(curr.getRight(), level);
+	}
+	return a;
     }
 
     public String toString(){
@@ -192,7 +203,10 @@ public class BTree<T>{
 	System.out.println( "Post-order: ");
 	t.traverse(2);
 
-	System.out.println(t.getHeight());
-	System.out.println(t.getHeight(t.getRoot().getLeft()));
+	System.out.println("Height: " + t.getHeight());
+	System.out.println("Height - 1: " + t.getHeight(t.getRoot().getLeft()));
+	System.out.println();
+	
+	System.out.println("Level 2: " + t.getLevel(t.getRoot(), 2));
     }
 }
