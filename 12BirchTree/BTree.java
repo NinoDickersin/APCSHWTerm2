@@ -188,7 +188,11 @@ public class BTree<T>{
     }
 
     public String toString(){
-	return "";
+	String a = "";
+	for(int i = 0; i < this.getHeight(); i++){
+	    a += this.getLevel(this.getRoot(), i) + "\n";
+	}
+	return a;
     }
 
     public static void main(String[]args){
@@ -208,5 +212,7 @@ public class BTree<T>{
 	System.out.println();
 	
 	System.out.println("Level 2: " + t.getLevel(t.getRoot(), 2));
+
+	System.out.println("Tree: \n" + t.toString());
     }
 }
