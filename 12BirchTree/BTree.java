@@ -73,7 +73,7 @@ public class BTree<T>{
     public static final int IN_ORDER = 1;
     public static final int POST_ORDER = 2;    
 
-    Random r = new Random(421);
+    Random r = new Random(9001);
 
     private TreeNode<T> root;
 
