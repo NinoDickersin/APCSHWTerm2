@@ -94,10 +94,13 @@ public class BSTree <T extends Comparable> {
     private BSTreeNode<T> add(BSTreeNode<T> curr, BSTreeNode<T> t) {
 	if(curr == null){
 	    return t;
-	}else if(){
-
-	}else if(t.compareTo){
-	    curr.setLeft( add( root.getLeft(), tn));
+	}else if(t.compareTo(curr) == 0){
+	    curr.addTally();
+	    return;
+	}else if(t.compareTo(curr) == -1){
+	    curr.setLeft( add( root.getLeft(), t ));
+	}else{
+	    curr.setRight( add( root.getRight(), t));
 	}
 	return null;
     }
@@ -155,24 +158,30 @@ public class BSTree <T extends Comparable> {
 	String result = "";
 	if (root != null) {
 	    int height = getHeight();
-	    for (int level = 1; level <= height; level++)
+	    for (int level = 1; level <= height; level++){
 		result += spaces(Math.pow(2, height - level) - 1) +
 		    getLevel(root, level, level, height).replaceFirst("\\s+$", "") +
 		    "\n";
+	    }
 	}
 	return result;
     }
 
     private String getLevel(TreeNode<E> curr, int currLevel, int targetLevel, int height) {
-	if (currLevel == 1)
+	if (currLevel == 1){
 	    return curr.toString() + spaces(Math.pow(2, height - targetLevel + 1) - 1);
+	}
 	String result = "";
-	if (curr.getLeft() != null)
+	if (curr.getLeft() != null){
 	    result += getLevel(curr.getLeft(), currLevel - 1, targetLevel, height);
-	else result += spaces(Math.pow(2, height - targetLevel + currLevel - 1));
-	if (curr.getRight() != null)
+	}else{
+	    result += spaces(Math.pow(2, height - targetLevel + currLevel - 1));
+	}
+	if (curr.getRight() != null){
 	    result += getLevel(curr.getRight(), currLevel - 1, targetLevel, height);
-	else result += spaces(Math.pow(2, height - targetLevel + currLevel - 1));
+	}else{
+	    result += spaces(Math.pow(2, height - targetLevel + currLevel - 1));
+	}
 	return result;
     }
     public static void main( String[] args ) {
