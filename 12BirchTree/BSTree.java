@@ -63,6 +63,8 @@ public class BSTree <T extends Comparable> {
 
     private BSTreeNode<T> root;
 
+    private Random r = new Random(1337);
+
     public BSTree() {
 	root = null;
     }
@@ -96,13 +98,14 @@ public class BSTree <T extends Comparable> {
 	    return t;
 	}else if(t.compareTo(curr) == 0){
 	    curr.addTally();
-	    return;
+	    return t;
 	}else if(t.compareTo(curr) == -1){
 	    curr.setLeft( add( root.getLeft(), t ));
+	    return t;
 	}else{
 	    curr.setRight( add( root.getRight(), t));
+	    return t;
 	}
-	return null;
     }
 
     /*======== public void remove() ==========
@@ -124,9 +127,15 @@ public class BSTree <T extends Comparable> {
       curr, if it exists.
       ====================*/
     private BSTreeNode<T> remove( BSTreeNode<T> curr, T c ) {
+	if (curr.getData() == c){
+	    if(curr.isLeaf()){
+		curr == null;
+		return c;
+	    }else{
+	    }
+	}
 	return null;
     }
-
 
     /*======== public void inOrder()) ==========
       Inputs:   
@@ -154,36 +163,57 @@ public class BSTree <T extends Comparable> {
 	inOrderHelper( t.getRight() );
     }
 
-    public String toString() {
-	String result = "";
-	if (root != null) {
-	    int height = getHeight();
-	    for (int level = 1; level <= height; level++){
-		result += spaces(Math.pow(2, height - level) - 1) +
-		    getLevel(root, level, level, height).replaceFirst("\\s+$", "") +
-		    "\n";
-	    }
+    /**
+     * stolen from: Dennis Yatunin
+     * (no not really stolen from, donated by)
+     */
+
+    public int getHeight(){
+	return getHeight(root);
+    }
+
+    private int getHeight(BSTreeNode<T> r ){
+	if(r == null){
+	    return 0;
+	}else{
+	    //System.out.println("recursion height");
+	    return 1 + Math.max(getHeight(r.getLeft()),
+				getHeight(r.getRight()));
 	}
+    }
+
+    private int maxLength() {
+	// returns the minimum number of characters required
+	// to print the data from any node in the tree
+	if (root == null)
+	    return 0;
+	return maxLength(root);
+    }
+
+    private int maxLength(BSTreeNode<T> curr) {
+	int max = curr.toString().length();
+	int temp;
+	if (curr.getLeft() != null) {
+	    temp = maxLength(curr.getLeft());
+	    if (temp > max)
+		max = temp;
+	}
+	if (curr.getRight() != null) {
+	    temp = maxLength(curr.getRight());
+	    if (temp > max)
+		max = temp;
+	}
+	return max;
+    }
+
+    private String spaces(double n) {
+	// returns a String of n spaces
+	String result = "";
+	for (int i = 0; i < n; i++)
+	    result += " ";
 	return result;
     }
 
-    private String getLevel(TreeNode<E> curr, int currLevel, int targetLevel, int height) {
-	if (currLevel == 1){
-	    return curr.toString() + spaces(Math.pow(2, height - targetLevel + 1) - 1);
-	}
-	String result = "";
-	if (curr.getLeft() != null){
-	    result += getLevel(curr.getLeft(), currLevel - 1, targetLevel, height);
-	}else{
-	    result += spaces(Math.pow(2, height - targetLevel + currLevel - 1));
-	}
-	if (curr.getRight() != null){
-	    result += getLevel(curr.getRight(), currLevel - 1, targetLevel, height);
-	}else{
-	    result += spaces(Math.pow(2, height - targetLevel + currLevel - 1));
-	}
-	return result;
-    }
     public static void main( String[] args ) {
 
     }
