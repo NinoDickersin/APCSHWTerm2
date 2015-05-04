@@ -48,24 +48,12 @@ public class BSTreeNode<T extends Comparable> {
 	tally++;
     }
 
-    public boolean hasLeft() {
-	return left != null;
-    }
-
-    public boolean isLeaf() {
-      return (left == null && right == null);
-    }
-
     public int compareTo(BSTreeNode<T> other){
-	return data.compareTo(other.getData());
+	return (this.getData()).compareTo(other.getData());
     }
 
     public int compareTo(T value){
-	return data.compareTo(value);
-    }
-
-    public String toString() {
-	return data + "";
+	return (this.getData()).compareTo(value);
     }
 }
 

@@ -19,9 +19,6 @@ public class BSTree <T extends Comparable> {
     public boolean isEmpty() {
 	return root == null;
     }
-    public boolean isLeaf( BSTreeNode<T> t ) {
-	return (t.getLeft() == null && t.getRight() == null);
-    }
 
     /*======== public void add() ==========
       Inputs:   T c  
@@ -43,12 +40,10 @@ public class BSTree <T extends Comparable> {
     private BSTreeNode<T> add(BSTreeNode<T> curr, BSTreeNode<T> t) {
 	if(curr == null){
 	    return t;
-	}else if(t.compareTo(curr) == 0){
-	    curr.addTally();
-	}else if(t.compareTo(curr) == -1){
-	    curr.setLeft( add( root.getLeft(), t ));
+	}else if(curr.compareTo(t) > 0){
+	    curr.setLeft( add( curr.getLeft(), t ));
 	}else{
-	    curr.setRight( add( root.getRight(), t));
+	    curr.setRight( add( curr.getRight(), t));
 	}
 	return curr;
     }
@@ -74,26 +69,24 @@ public class BSTree <T extends Comparable> {
     private BSTreeNode<T> remove( BSTreeNode<T> curr, T c ) {
 	if(curr == null){
 	    return curr;
-	}if(c.compareTo(curr.getData()) < 0){
+	}else if(curr.isLeaf() && curr.compareTo(c) == 0){
+	    return null;
+	}else if(curr.compareTo(c) > 0){
 	    curr.setLeft(remove(curr.getLeft(), c));
-	}else if(c.compareTo(curr.getData()) > 0){
-	    curr.setRight(remove(curr.getRight(), c));
-	}else if(!isLeaf(curr)){
-	    curr.setData(findMin(curr.getRight()).getData());
-	    curr.setRight(remove(curr.getRight(), curr.getData()));
+	}else if(curr.compareTo(c) < 0){
+	    curr.setRight(remove(root.getRight(), c));
 	}else{
-	    curr = (curr.getLeft() != null) ? curr.getLeft() : curr.getRight();
+	    curr.setData(findReplacement(curr.getRight()).getData());
+	    curr.setRight(remove(curr.getRight(), curr.getData()));
 	}
 	return curr;
     }
 
-    public BSTreeNode<T> findMin(BSTreeNode<T> t){
+    public BSTreeNode<T> findReplacement(BSTreeNode<T> t){
 	if(t == null){
 	    return null;
-	}else if(t.getLeft() == null){
-	    return t;
 	}
-	return findMin(t.getLeft());
+	return t.hasLeft() ? findReplacement(t.getLeft()) : t;
     }
 
     /*======== public void inOrder()) ==========
@@ -240,7 +233,18 @@ public class BSTree <T extends Comparable> {
     }
 
     public static void main( String[] args ) {
-
+	Random r = new Random();
+	BSTree<Integer> a = new BSTree();
+	//adding
+	a.add(16);
+      	a.add(13);
+	a.add(19);
+       	a.add(25);
+       	a.add(12);
+       	a.add(15);
+       	a.add(18);
+	a.remove(13);
+	System.out.println(a);
     }
 
 }
