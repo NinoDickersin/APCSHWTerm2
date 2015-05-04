@@ -3,8 +3,8 @@
 //Your binary search tree skeleton file:
 
 
-//import java.io.*;
-//import java.util.*;
+import java.io.*;
+import java.util.*;
 
 public class BSTree <T extends Comparable> {
 
