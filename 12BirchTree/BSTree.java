@@ -87,7 +87,7 @@ public class BSTree <T extends Comparable> {
 	return curr;
     }
 
-    public BSTreeNode<T> findMind(BSTreeNode<T> t){
+    public BSTreeNode<T> findMin(BSTreeNode<T> t){
 	if(t == null){
 	    return null;
 	}else if(t.getLeft() == null){
