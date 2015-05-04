@@ -1,63 +1,10 @@
 //
 //
-//Your binary search tree Node skeleton file:
-
-
-import java.io.*;
-import java.util.*;
-
-public class BSTreeNode<T extends Comparable> {
-
-
-    private int tally;
-    private T data;
-    private BSTreeNode<T> left;
-    private BSTreeNode<T> right;
-
-    public BSTreeNode( T d ) {
-	tally = 1;
-	data = d;
-	left = right = null;
-    }
-    
-    //accessors
-    public T getData() {
-	return data;
-    }
-    public int getTally(){
-	return tally;
-    }
-    public BSTreeNode<T> getLeft() {
-	return left;
-    }
-    public BSTreeNode<T> getRight() {
-	return right;
-    }
-
-    //mutators
-    public void setData( T d ) {
-	data = d;
-    }
-    public void setLeft( BSTreeNode<T> l ) {
-	left = l;
-    }
-    public void setRight( BSTreeNode<T> r ) {
-	right = r;
-    }
-    public void addTally(){
-	tally++;
-    }
-}
-
-
-
-//
-//
 //Your binary search tree skeleton file:
 
 
-import java.io.*;
-import java.util.*;
+//import java.io.*;
+//import java.util.*;
 
 public class BSTree <T extends Comparable> {
 
@@ -88,7 +35,7 @@ public class BSTree <T extends Comparable> {
 
     /*======== public BSTreeNode<T> add() ==========
       Inputs:  BSTreeNode<T> curr
-               BSTreeNode<T> t 
+      BSTreeNode<T> t 
       Returns: 
 
       Add t to the correct place in the tree rooted at curr.
@@ -98,14 +45,12 @@ public class BSTree <T extends Comparable> {
 	    return t;
 	}else if(t.compareTo(curr) == 0){
 	    curr.addTally();
-	    return t;
 	}else if(t.compareTo(curr) == -1){
 	    curr.setLeft( add( root.getLeft(), t ));
-	    return t;
 	}else{
 	    curr.setRight( add( root.getRight(), t));
-	    return t;
 	}
+	return curr;
     }
 
     /*======== public void remove() ==========
@@ -120,21 +65,35 @@ public class BSTree <T extends Comparable> {
 
     /*======== public BSTreeNode<T> remove() ==========
       Inputs:   BSTreeNode<T> curr
-		T c
+      T c
       Returns: 
 
       Should remove the value c from the tree rooted at
       curr, if it exists.
       ====================*/
     private BSTreeNode<T> remove( BSTreeNode<T> curr, T c ) {
-	if (curr.getData() == c){
-	    if(curr.isLeaf()){
-		curr == null;
-		return c;
-	    }else{
-	    }
+	if(curr == null){
+	    return curr;
+	}if(c.compareTo(curr.getData()) < 0){
+	    curr.setLeft(remove(curr.getLeft(), c));
+	}else if(c.compareTo(curr.getData()) > 0){
+	    curr.setRight(remove(curr.getRight(), c));
+	}else if(!isLeaf(curr)){
+	    curr.setData(findMin(curr.getRight()).getData());
+	    curr.setRight(remove(curr.getRight(), curr.getData()));
+	}else{
+	    curr = (curr.getLeft() != null) ? curr.getLeft() : curr.getRight();
 	}
-	return null;
+	return curr;
+    }
+
+    public BSTreeNode<T> findMind(BSTreeNode<T> t){
+	if(t == null){
+	    return null;
+	}else if(t.getLeft() == null){
+	    return t;
+	}
+	return findMin(t.getLeft());
     }
 
     /*======== public void inOrder()) ==========
@@ -211,6 +170,72 @@ public class BSTree <T extends Comparable> {
 	String result = "";
 	for (int i = 0; i < n; i++)
 	    result += " ";
+	return result;
+    }
+
+    /*
+      getLevel will produce a String for each level of the tree.
+      The resulting Strings will look like this:
+
+      ._______________________________
+      ._______________._______________
+      ._______._______._______._______
+      .___.___.___.___.___.___.___.___
+      ._._._._._._._._._._._._._._._._
+
+      toString will combine those Strings and provide an output that
+      will look like this:
+
+      _______________.
+      _______._______________.
+      ___._______._______._______.
+      _.___.___.___.___.___.___.___.
+      ._._._._._._._._._._._._._._._.
+      In these diagrams, each dot represents wordLength characters,
+      each underscore represents wordLength spaces, and, for any nodes
+      that are null, the dots will be "replaced" by underscores.
+    */
+
+    private String getLevel(BSTreeNode<T> curr, int currLevel, int targetLevel, int height, int wordLength) {
+	if (currLevel == 1){
+	    return curr.toString() + 
+		spaces(wordLength - curr.toString().length()) +
+		spaces(wordLength * 
+		       Math.pow(2, height - targetLevel + 1) - 
+		       wordLength);
+	}
+	String result = "";
+	if (curr.getLeft() != null){
+	    result += getLevel(curr.getLeft(), currLevel - 1, targetLevel, height, wordLength);
+	}else{
+	    result += spaces(wordLength * Math.pow(2, height - targetLevel + currLevel - 1));
+	}
+	if (curr.getRight() != null){
+	    result += getLevel(curr.getRight(), currLevel - 1, targetLevel, height, wordLength);
+	}else{ 
+	    result += spaces(wordLength * Math.pow(2, height - targetLevel + currLevel - 1));
+	}
+	return result;
+    }
+		
+    public String toString() {
+	if (root == null)
+	    return "";
+	String result = "";
+	int height = getHeight();
+	int wordLength = maxLength();
+	// add the every level of the tree except the last one
+	for (int level = 1; level < height; level++){
+	    // remove extra spaces from the end of each level's String to prevent lines from
+	    // getting unnecessarily long and add spaces to the front of each level's String
+	    // to keep everything centered
+	    result += spaces(wordLength * Math.pow(2, height - level) - wordLength) +
+		getLevel(root, level, level, height, wordLength).replaceFirst("\\s+$", "") +
+		"\n";
+	}
+	// now add the last level (level = height)
+	result += getLevel(root, height, height, height, wordLength).replaceFirst("\\s+$", "");
+				
 	return result;
     }
 
