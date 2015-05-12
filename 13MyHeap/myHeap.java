@@ -59,11 +59,19 @@ public class MyHeap{
     }
 
     public int remove(){
-
+	int a = peek();
+	for(int i = 1; i < heap.length(); i++){
+	    if(i + 1 = heap.length() && heap[i] != 0){
+		heap[i] = 0;
+	    }else{
+		heap[i] = heap[i + 1]; 
+	    }
+	}
+	heap[0] --;
     }
 
     public String toString(){
-
+	return Arrays.toString(heap);
     }
 
     public static void main (String[]args){
