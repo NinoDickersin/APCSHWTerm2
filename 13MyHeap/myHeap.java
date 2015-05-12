@@ -59,6 +59,9 @@ public class MyHeap{
     }
 
     public int remove(){
+	if(heap[0] <= 0){
+	    throw new NoSuchElementException();
+	}
 	int a = peek();
 	for(int i = 1; i < heap.length(); i++){
 	    if(i + 1 = heap.length() && heap[i] != 0){
@@ -68,6 +71,7 @@ public class MyHeap{
 	    }
 	}
 	heap[0] --;
+	return a;
     }
 
     public String toString(){
