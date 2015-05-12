@@ -55,6 +55,9 @@ public class MyHeap{
     }
 
     public int peek(){
+	if(heap[0] <= 0){
+	    throw new NoSuchElementException();
+	}
 	return heap[1];
     }
 
