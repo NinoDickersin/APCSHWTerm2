@@ -67,6 +67,10 @@ public class MyHeap{
 	return heap[1];
     }
 
+    public int size(){
+	return heap[0];
+    }
+
     public int remove(){
 	if(heap[0] <= 0){
 	    throw new NoSuchElementException();
