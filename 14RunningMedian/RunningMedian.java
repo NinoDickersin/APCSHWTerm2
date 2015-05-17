@@ -14,18 +14,19 @@ public class RunningMedian{
     }
 
     public void add(int value){
-	if(minHeap.size() == 0 && maxHeap.size() == 0){
+	if(maxHeap.size() == 0){
 	    maxHeap.add(value);
-	}
-	if(value <= minHeap.peek()){
+	}else if(minHeap.size() == 0){
 	    minHeap.add(value);
-	    if(minHeap.size() + 1 > maxHeap.size()){
-		maxHeap.add(minHeap.remove());
-	    }
-	}else{
+	}else if(value <= maxHeap.peek()){
 	    maxHeap.add(value);
 	    if(maxHeap.size() + 1 > minHeap.size()){
 		minHeap.add(maxHeap.remove());
+	    }
+	}else{
+	    minHeap.add(value);
+	    if(maxHeap.size() + 1 < minHeap.size()){
+		maxHeap.add(minHeap.remove());
 	    }
 	}
 	
@@ -45,8 +46,8 @@ public class RunningMedian{
 	RunningMedian a = new RunningMedian();
 	for(int i = 0; i < 10; i ++){
 	    a.add(i);
-	    //	    a.add(i + 5);
+	    a.add(i + 5);
 	}
-	System.out.println(i);
+	System.out.println(a.getMedian());
     }
 }
