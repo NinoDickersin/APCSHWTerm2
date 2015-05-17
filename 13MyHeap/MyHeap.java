@@ -16,6 +16,10 @@ public class MyHeap{
 	heap[0] = 0;
     }
 
+    public String name(){
+	return "dickersin.nino";
+    }
+
     public void add(int x){
 	boolean notOrdered = true;
 	heap[0] = heap[0] + 1;
@@ -87,11 +91,27 @@ public class MyHeap{
 	return a;
     }
 
-    public String toString(){
+    public String toStringArray(){
 	return Arrays.toString(heap);
     }
 
-    public static void main (String[]args){
+    public String toString(){
+	String a = "";
+	int rowCount = 0;
+	int power = 0;
+	for(int i = 1; i <= heap[0]; i++){
+	    a += heap[i] + " ";
+	    rowCount++;
+	    if(rowCount == (int)Math.pow(2, power)){
+		power++;
+		a +="\n";
+		rowCount = 0;
+	    }
+	}
+	return a;
+    }
+
+    public static void main(String[]args){
 	MyHeap a = new MyHeap(true);
 	/**
 	for(int i = 0; i <=10; i++){
@@ -105,8 +125,9 @@ public class MyHeap{
 	a.add(9);
 	a.add(10);
 	a.add(4);
-	a.remove();
+	//	a.remove();
 	//	System.out.println(a.peek());
+	System.out.println(a.toStringArray());
 	System.out.println(a);
     }
 }

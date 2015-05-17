@@ -5,14 +5,15 @@ public class RunningMedian{
     MyHeap maxHeap;
 
     public RunningMedian(){
-
+	minHeap = new MyHeap(false);
+	maxHeap = new MyHeap(true);
     }
 
     public void add(int value){
 
     }
 
-    public doible getMedian(){
+    public double getMedian(){
 	if(minHeap.size() > maxHeap.size()){
 	    return minHeap.peek();
 	}else if(minHeap.size() < maxHeap.size()){
