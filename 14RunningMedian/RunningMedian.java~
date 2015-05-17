@@ -9,6 +9,10 @@ public class RunningMedian{
 	maxHeap = new MyHeap(true);
     }
 
+    public String name(){
+	return "dickersin.nino";
+    }
+
     public void add(int value){
 
     }
@@ -21,5 +25,9 @@ public class RunningMedian{
 	}else{
 	    return (minHeap.peek() + maxHeap.peek()) / 2.0;
 	}
+    }
+
+    public static void main(String[]args){
+
     }
 }
